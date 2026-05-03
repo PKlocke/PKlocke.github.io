@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>pklocke — Contact</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --surface: #141414;
+      --border: #2a2a2a;
+      --text: #e8e2d9;
+      --muted: #6b6560;
+      --accent: #c8a96e;
+      --accent-dim: rgba(200,169,110,0.12);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      min-height: 100vh;
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.4rem 3rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(13,13,13,0.88);
+      backdrop-filter: blur(12px);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 300;
+      letter-spacing: 0.06em;
+      color: var(--text); text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.7rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--muted);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+    /* ── PAGE ── */
+    .page-wrapper {
+      max-width: 1100px; margin: 0 auto;
+      padding: 8rem 3rem 5rem;
+    }
+
+    /* ── SPLIT LAYOUT ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    /* LEFT COL */
+    .contact-left {
+      opacity: 0;
+      animation: fadeUp 0.9s 0.1s forwards;
+    }
+    .page-eyebrow {
+      font-size: 0.65rem; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 5.5vw, 5rem);
+      font-weight: 300; line-height: 1;
+      margin-bottom: 2rem;
+    }
+    .page-title em { font-style: italic; color: var(--accent); }
+    .contact-blurb {
+      font-size: 0.8rem; line-height: 2; color: var(--muted);
+      margin-bottom: 3rem;
+    }
+
+    /* Social / link rows */
+    .contact-links { display: flex; flex-direction: column; }
+    .contact-link-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 0;
+      border-top: 1px solid var(--border);
+      text-decoration: none; color: inherit;
+      transition: padding 0.2s, background 0.2s;
+    }
+    .contact-link-row:last-child { border-bottom: 1px solid var(--border); }
+    .contact-link-row:hover { padding-left: 0.8rem; background: var(--surface); }
+    .link-platform {
+      font-size: 0.65rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .link-handle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; color: var(--text);
+    }
+    .link-arrow { font-size: 0.65rem; color: var(--accent); }
+
+    /* RIGHT COL — Form */
+    .contact-right {
+      opacity: 0;
+      animation: fadeUp 0.9s 0.3s forwards;
+    }
+    .form-label {
+      font-size: 0.65rem; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 2rem; display: block;
+    }
+
+    .form-group { margin-bottom: 1.8rem; }
+    .field-label {
+      display: block;
+      font-size: 0.62rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+    .field-input, .field-textarea {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      padding: 0.85rem 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: none;
+      appearance: none;
+    }
+    .field-input:focus, .field-textarea:focus {
+      border-color: var(--accent);
+    }
+    .field-input::placeholder, .field-textarea::placeholder {
+      color: var(--muted);
+    }
+    .field-textarea { height: 130px; }
+
+    .btn-submit {
+      width: 100%;
+      padding: 1rem;
+      background: var(--accent);
+      color: var(--bg);
+      border: 1px solid var(--accent);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+    .btn-submit:hover { background: transparent; color: var(--accent); }
+
+    .form-note {
+      margin-top: 1rem;
+      font-size: 0.62rem; line-height: 1.7;
+      color: var(--muted); text-align: center;
+    }
+
+    /* ── SUCCESS MESSAGE (hidden by default) ── */
+    .success-msg {
+      display: none;
+      padding: 1.5rem;
+      border: 1px solid var(--accent);
+      background: var(--accent-dim);
+      font-size: 0.75rem; line-height: 1.8;
+      color: var(--accent);
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      margin-top: 5rem;
+      padding: 2rem 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.65rem; letter-spacing: 0.1em; color: var(--muted);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .page-wrapper { padding: 7rem 1.5rem 4rem; }
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      footer { flex-direction: column; gap: 0.8rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">pk<span>locke</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="contact-grid">
+
+      <!-- LEFT -->
+      <div class="contact-left">
+        <p class="page-eyebrow">Get in touch</p>
+        <h1 class="page-title">Let's<br><em>talk.</em></h1>
+        <p class="contact-blurb">
+          Open to collaborations, questions, and interesting conversations.
+          Replace this text with your own message about what kinds of outreach you welcome.
+        </p>
+
+        <div class="contact-links">
+          <!-- Replace href and handle values -->
+          <a href="mailto:you@example.com" class="contact-link-row">
+            <span class="link-platform">Email</span>
+            <span class="link-handle">you@example.com</span>
+            <span class="link-arrow">↗</span>
+          </a>
+          <a href="https://github.com/pklocke" target="_blank" rel="noopener" class="contact-link-row">
+            <span class="link-platform">GitHub</span>
+            <span class="link-handle">pklocke</span>
+            <span class="link-arrow">↗</span>
+          </a>
+          <a href="https://linkedin.com/in/yourhandle" target="_blank" rel="noopener" class="contact-link-row">
+            <span class="link-platform">LinkedIn</span>
+            <span class="link-handle">yourhandle</span>
+            <span class="link-arrow">↗</span>
+          </a>
+          <!-- Add or remove rows as needed -->
+        </div>
+      </div>
+
+      <!-- RIGHT: Contact form -->
+      <!-- Note: GitHub Pages is static. To make this form functional you need a form
+           backend such as Formspree (formspree.io) — replace the action URL below. -->
+      <div class="contact-right">
+        <span class="form-label">Send a message</span>
+
+        <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <div class="form-group">
+            <label class="field-label" for="name">Name</label>
+            <input id="name" name="name" type="text" class="field-input"
+              placeholder="Your name" required>
+          </div>
+
+          <div class="form-group">
+            <label class="field-label" for="email">Email</label>
+            <input id="email" name="email" type="email" class="field-input"
+              placeholder="your@email.com" required>
+          </div>
+
+          <div class="form-group">
+            <label class="field-label" for="subject">Subject</label>
+            <input id="subject" name="subject" type="text" class="field-input"
+              placeholder="What's this about?">
+          </div>
+
+          <div class="form-group">
+            <label class="field-label" for="message">Message</label>
+            <textarea id="message" name="message" class="field-textarea"
+              placeholder="Your message here…" required></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit">Send message</button>
+
+          <p class="form-note">
+            Form powered by Formspree — replace the action URL with your own endpoint,
+            or swap in any static form service.
+          </p>
+        </form>
+
+        <div class="success-msg" id="success-msg">
+          ✓ Message sent. I'll get back to you soon.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <span>© 2026 pklocke</span>
+    <span>pklocke.github.io</span>
+  </footer>
+
+  <script>
+    // Progressive enhancement: show success message on submit
+    // (Works fully when wired to a real backend; no-op on GitHub Pages static)
+    const form = document.getElementById('contact-form');
+    const successMsg = document.getElementById('success-msg');
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        const action = form.getAttribute('action') || '';
+        if (action.includes('YOUR_FORM_ID')) return; // not configured, let browser handle
+        e.preventDefault();
+        try {
+          const data = new FormData(form);
+          const res = await fetch(form.action, {
+            method: 'POST', body: data,
+            headers: { 'Accept': 'application/json' }
+          });
+          if (res.ok) {
+            form.style.display = 'none';
+            successMsg.style.display = 'block';
+          }
+        } catch (_) { form.submit(); }
+      });
+    }
+  </script>
+
+</body>
+</html>
