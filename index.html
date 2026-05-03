@@ -115,6 +115,9 @@
       padding: 0 3rem 5rem;
       opacity: 0;
       animation: fadeUp 0.9s 0.45s forwards;
+      display: flex;              /* ← ADD THIS */
+      flex-direction: column;     /* ← ADD THIS */
+      align-items: center;        /* ← ADD THIS — centers both the text and the grid */
     }
     .buttons-intro {
       font-size: 1.2rem;
@@ -128,6 +131,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 2rem;
       max-width: 700px;
+      margin: 0 auto;        /* ← ADD THIS to center the grid horizontally */
     }
     .nav-btn {
       display: flex;
