@@ -62,7 +62,7 @@
     /* ── PAGE WRAPPER ── */
     .page-wrapper {
       max-width: 900px;
-      margin: 0 auto;
+      margin: 0 3rem;   /* ← change from "0 auto" to "0 3rem" */
       padding: 7rem 3rem 5rem;
     }
 
@@ -217,9 +217,10 @@
 
     /* ── FAQ ── */
     .faq-section {
-      margin-bottom: 3rem;
-      opacity: 0;
-      animation: fadeUp 0.9s 0.5s forwards;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;   /* ← these two lines center it independently */
+  /* keep all existing properties */
     }
 
     .faq-item {
@@ -406,7 +407,10 @@
 
     <div class="section-divider"></div>
 
-    <!-- FAQ -->
+    
+  </div><!-- /page-wrapper -->
+
+  <!-- FAQ -->
     <div class="faq-section">
       <h2 class="section-heading">Häufig gestellte Fragen zur Neuvorstellung in unserer Ambulanz</h2>
 
@@ -537,7 +541,6 @@
 
     <a href="index.html" class="back-link">← Zurück zur Startseite</a>
 
-  </div><!-- /page-wrapper -->
 
   <footer>
     <span>Ambulanz für Tiefe Hirnstimulation und Pumpentherapien</span>
