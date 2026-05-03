@@ -1,5 +1,5 @@
 layout: page
-title: "THS-Website"
+title: "THS_Website"
 permalink: /about/contact
 
 Kontaktmöglichkeiten: 
