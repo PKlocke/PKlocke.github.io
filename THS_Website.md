@@ -4,3 +4,4 @@ permalink: /about/contact
 
 Kontaktmöglichkeiten: 
 - Text
+- Text
